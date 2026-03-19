@@ -135,12 +135,15 @@ $$\mathcal{P}_{\text{smooth}} = \mathbb{E}\left[(\Delta^2 f)^2\right], \quad \De
 
 **Model Architecture:**
 
-$$x_{\text{rank}} \xrightarrow{\text{Linear}(1 \to 32)} \xrightarrow{\text{Tanh}} \xrightarrow{+\text{ Residual}} \xrightarrow{\text{Linear}(32 \to 16)} \xrightarrow{\text{Tanh}} \xrightarrow{\text{Linear}(16 \to 1)} \xrightarrow{\text{Softplus}} \xrightarrow{\text{Normalize}} w_i$$
+```
+x_rank → Linear(1→32) → Tanh → [+ Residual Linear(1→32)]
+       → Linear(32→16) → Tanh → Linear(16→1) → Softplus → Normalize → w_i
+```
 
 **Training:**
-- Optimizer: Adam ($\text{lr} = 0.001$)
-- Scheduler: CosineAnnealingWarmRestarts ($T_0 = 200$, $T_{\text{mult}} = 2$)
-- Gradient Clipping: $\text{max\_norm} = 1.0$
+- Optimizer: Adam (lr = 0.001)
+- Scheduler: CosineAnnealingWarmRestarts ($T_0 = 200$, $T_\text{mult} = 2$)
+- Gradient Clipping: max norm = 1.0
 - Early Stopping: patience = 200
 - Max Epochs: 2000
 
